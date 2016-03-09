@@ -1,15 +1,15 @@
 package com.simplemess.entity;
 
-import lombok.Data;
+
 
 import javax.persistence.*;
 
-import org.springframework.data.annotation.Id;
-
+//import org.springframework.data.annotation.Id;
+import javax.persistence.Entity;
 import java.util.List;
 import java.util.Set;
 
-@Data
+
 @Entity
 public class User {
     public User() {
@@ -26,7 +26,7 @@ public class User {
 
     private String name;
     private String lastName;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
     List<Message> messages;
 

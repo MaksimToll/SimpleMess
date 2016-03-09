@@ -1,6 +1,6 @@
 package com.simplemess.entity;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.Entity;
 
 import javax.persistence.*;
 
@@ -13,7 +13,7 @@ public class Message {
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User aoutor;
 
     public Message() {
@@ -22,7 +22,7 @@ public class Message {
     public Message(String title, String text, User aoutor) {
         this.title = title;
         this.text = text;
-        this.aoutor = aoutor;
+//        this.aoutor = aoutor;
     }
 
     public Long getId() {
@@ -49,12 +49,12 @@ public class Message {
         this.title = title;
     }
 
-    public User getAoutor() {
+  /*  public User getAoutor() {
         return aoutor;
     }
 
     public void setAoutor(User aoutor) {
         this.aoutor = aoutor;
-    }
+    }*/
 
 }
