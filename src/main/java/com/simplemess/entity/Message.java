@@ -9,12 +9,18 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String text;
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id", nullable = false)
     private User aoutor;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
 
     public Message() {
     }
@@ -22,7 +28,7 @@ public class Message {
     public Message(String title, String text, User aoutor) {
         this.title = title;
         this.text = text;
-//        this.aoutor = aoutor;
+        this.aoutor = aoutor;
     }
 
     public Long getId() {
@@ -49,12 +55,30 @@ public class Message {
         this.title = title;
     }
 
-  /*  public User getAoutor() {
+    public User getAoutor() {
         return aoutor;
     }
 
     public void setAoutor(User aoutor) {
         this.aoutor = aoutor;
-    }*/
+    }
 
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", title='" + title + '\'' +
+                ", author=" + aoutor.getName() +
+                ", receiver=" + receiver.getName() +
+                '}';
+    }
 }

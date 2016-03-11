@@ -34,6 +34,9 @@ public class User {
     @JoinColumn(name = "id")
     Set<User> friends;
 
+    private String password;
+    private String email;
+
     public User(Long id, String name, String lastName) {
         this.id = id;
         this.name = name;
@@ -79,5 +82,21 @@ public class User {
 
     public void setFriends(Set<User> friends) {
         this.friends = friends;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -1,7 +1,10 @@
 package com.simplemess;
 
+import com.simplemess.entity.Message;
 import com.simplemess.entity.User;
+import com.simplemess.repository.MessageRepository;
 import com.simplemess.repository.UserRespository;
+import org.hibernate.annotations.SourceType;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,6 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableAutoConfiguration
@@ -20,15 +26,30 @@ public class ConfigApp {
     }
 
     @Bean
-    public CommandLineRunner demo(UserRespository respository) {
+    public CommandLineRunner demo(UserRespository userRespository, MessageRepository messageRepository) {
         return (args) -> {
             User user = new User("Anast", "Lot");
-            respository.save(user);
-            respository.save(new User("Maks", "Toll"));
+            user.setPassword("admin");
+            user.setEmail("admin@mail.ua");
+            User user2 = new User("Maks", "Toll");
+            userRespository.save(user);
+            userRespository.save(user2);
 
-            for (User user1: respository.findAll()){
+            for (User user1: userRespository.findAll()){
                 System.out.println( user.getName());
             }
+            List<Message> messages = new ArrayList<>();
+            Message message1= new Message("testik", "Some Test Message", user);
+            message1.setReceiver(user2);
+            messages.add(message1);
+            user.setMessages(messages);
+            userRespository.save(user);
+            for (User user1: userRespository.findAll()){
+                System.out.println( user.getName());
+            }
+            System.err.println("--------------------------------------------------------------");
+            List<Message> messageList = messageRepository.findByAoutorId(user.getId());
+            messageList.forEach(a-> System.err.println(a));
         };
     }
 }
