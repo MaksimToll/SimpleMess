@@ -2,6 +2,7 @@ package com.simplemess;
 
 import com.simplemess.entity.Message;
 import com.simplemess.entity.User;
+import com.simplemess.enums.UserRole;
 import com.simplemess.repository.MessageRepository;
 import com.simplemess.repository.UserRespository;
 import org.hibernate.annotations.SourceType;
@@ -32,6 +33,7 @@ public class ConfigApp {
             user.setPassword("admin");
             user.setEmail("admin@mail.ua");
             User user2 = new User("Maks", "Toll");
+            UserRole userRole = new UserRole("ADMIN", user );
             userRespository.save(user);
             userRespository.save(user2);
 

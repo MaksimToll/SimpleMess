@@ -2,6 +2,8 @@ package com.simplemess.entity;
 
 
 
+import com.simplemess.enums.UserRole;
+
 import javax.persistence.*;
 
 //import org.springframework.data.annotation.Id;
@@ -36,6 +38,9 @@ public class User {
 
     private String password;
     private String email;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserRole role;
 
     public User(Long id, String name, String lastName) {
         this.id = id;
@@ -80,6 +85,14 @@ public class User {
         return friends;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
     public void setFriends(Set<User> friends) {
         this.friends = friends;
     }
@@ -99,4 +112,5 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }
